@@ -6,7 +6,7 @@
 #    By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/13 19:51:16 by kabusitt          #+#    #+#              #
-#    Updated: 2022/05/16 15:55:41 by kabusitt         ###   ########.fr        #
+#    Updated: 2022/05/16 17:11:17 by kabusitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ${NAME}: ${OBJS}
 	${MAKE} -C libft
 	${CC} ${CFLAGS} ${OBJS} -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
-%.o: %.c philosophers.h
+%.o: %.c
 	${MAKE} -C libft
 	${CC} ${CFLAGS} -c $< -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
