@@ -6,7 +6,7 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:21:57 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/13 16:27:13 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/14 16:01:30 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_repeat(t_mlx *mlx)
 			if (mlx->map.map[i][z] == 'E' || mlx->map.map[i][z] == 'N'
 				|| mlx->map.map[i][z] == 'W' || mlx->map.map[i][z] == 'S')
 			{
-				if (out_of_bounds(mlx->map.map, i, z))
+				if (out_of_bounds(mlx, mlx->map.map, i, z))
 					return (1);
 				found++;
 			}
