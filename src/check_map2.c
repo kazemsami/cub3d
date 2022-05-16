@@ -6,22 +6,30 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:22:01 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/13 16:28:30 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:03:58 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	out_of_bounds(char **map, int i, int z)
+int	out_of_bounds(t_mlx *mlx, char **map, int i, int z)
 {
 	if (z < 1 || i < 1 || !map[i + 1] || !map[i][z + 1])
 		return (1);
-	if ((map[i][z + 1] != '0' && map[i][z + 1] != '1')
-		&& (map[i][z - 1] != '0' && map[i][z - 1] != '1')
-		&& (map[i - 1][z] != '0' && map[i - 1][z] != '1')
-		&& (map[i + 1][z] != '0' && map[i + 1][z] != '1'))
-		return (1);
-	return (0);
+	if (map[i - 1][z + 1] != ' '
+		&& map[i - 1][z - 1] != ' '
+		&& map[i + 1][z + 1] != ' '
+		&& map[i + 1][z - 1] != ' '
+		&& map[i + 1][z] != ' '
+		&& map[i - 1][z] != ' '
+		&& map[i][z - 1] != ' '
+		&& map[i][z + 1] != ' ')
+	{
+		mlx->player.pos_x = (double)i + 0.5;
+		mlx->player.pos_y = (double)z + 0.5;
+		return (0);
+	}
+	return (1);
 }
 
 int	check_ifone_h(t_mlx *mlx, int i, int z)

@@ -6,7 +6,7 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:53:37 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/13 17:04:18 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/14 13:13:22 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	parse_map(t_mlx *mlx, char **strs)
 			if (check_elements(mlx, *strs))
 				return (1);
 		}
-		else if (is_map(*strs) && elements_exist(mlx, 0))
+		else if (is_map(*strs) && elements_exist(mlx))
 		{
 			if (validate_map(mlx, strs))
 				return (1);
@@ -103,7 +103,10 @@ int	loadmap(t_mlx *mlx, char *file_name)
 	strs = ft_split(file_cont, '\n');
 	free(file_cont);
 	if (parse_map(mlx, strs))
+	{
+		free_split(strs);
 		return (1);
+	}
 	free_split(strs);
 	if (check_map_valid(mlx))
 		return (1);

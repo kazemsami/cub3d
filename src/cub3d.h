@@ -6,7 +6,7 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:10 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/13 17:45:11 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:52:31 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,19 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include "mlx/mlx.h"
-# include "libft/libft.h"
+# include <math.h>
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 852
+# define HEIGHT 480
+# define KEY_A 0x00
+# define KEY_S 0x01
+# define KEY_D 0x02
+# define KEY_W 0x0D
+# define KEY_ESC 0x35
+# define KEY_LEFT 0x7B
+# define KEY_RIGHT 0x7C
 
 typedef struct s_img {
 	void	*img_ptr;
@@ -31,13 +39,29 @@ typedef struct s_img {
 }	t_img;
 
 typedef struct s_player {
-	int	pos_x;
-	int	pos_y;
-	int	dir_y;
-	int	dir_x;
-	int	plane_x;
-	int	plane_y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_y;
+	double	dir_x;
+	double	plane_x;
+	double	plane_y;
 }	t_player;
+
+typedef struct s_ray {
+	double	camera_x;
+	double	raydir_x;
+	double	raydir_y;
+	int		map_x;
+	int		map_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		side;
+}	t_ray;
 
 typedef struct s_map {
 	char	**map;
@@ -66,13 +90,21 @@ typedef struct s_map {
 typedef struct s_mlx {
 	void		*mlx_ptr;
 	void		*win;
+	int			buf[HEIGHT][WIDTH];
+	int			key_a;
+	int			key_d;
+	int			key_s;
+	int			key_w;
+	int			key_right;
+	int			key_left;
 	t_img		img;
 	t_map		map;
 	t_player	player;
+	t_ray		ray;
 }	t_mlx;
 
 int		check_map(t_mlx *mlx);
-int		out_of_bounds(char **map, int i, int z);
+int		out_of_bounds(t_mlx *mlx, char **map, int i, int z);
 int		check_ifone_h(t_mlx *mlx, int i, int z);
 int		check_ifone_v(t_mlx *mlx, int i, int z);
 int		check_closed(t_mlx *mlx);
@@ -98,10 +130,26 @@ int		check_ceiling_col(t_mlx *mlx, char **strs);
 int		check_color(t_mlx *mlx);
 int		check_texture(t_mlx *mlx);
 int		check_nonewline(char *file_cont);
-int		elements_exist(t_mlx *mlx, int isnot);
+int		elements_exist(t_mlx *mlx);
 int		is_map(char *str);
 int		cpy_map(t_mlx *mlx, char **strs, int max);
 int		find_max(char **strs);
 int		check_filecont(char *file_cont);
+void	free_map(t_mlx *mlx);
+int		key_press(int keycode, t_mlx *mlx);
+int		key_release(int keycode, t_mlx *mlx);
+void	move_up(t_mlx *mlx);
+void	move_down(t_mlx *mlx);
+void	move_left(t_mlx *mlx);
+void	move_right(t_mlx *mlx);
+void	turn_right(t_mlx *mlx);
+void	turn_left(t_mlx *mlx);
+void	init_player(t_mlx *mlx);
+void	key_function(t_mlx *mlx);
+int		get_hex(int r, int g, int b);
+void	calc_step(t_mlx *mlx);
+void	dda(t_mlx *mlx);
+void	draw(t_mlx *mlx);
+void	process(t_mlx *mlx);
 
 #endif

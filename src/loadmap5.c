@@ -6,30 +6,19 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:05:53 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/13 17:06:02 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/14 13:13:53 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	elements_exist(t_mlx *mlx, int isnot)
+int	elements_exist(t_mlx *mlx)
 {
-	if (isnot)
-	{
-		if (!mlx->map.ntexture && !mlx->map.stexture
-			&& !mlx->map.wtexture && !mlx->map.etexture
-			&& !mlx->map.fcolor && !mlx->map.ccolor)
-			return (1);
-		return (0);
-	}
-	else
-	{
-		if (mlx->map.ntexture && mlx->map.stexture
-			&& mlx->map.wtexture && mlx->map.etexture
-			&& mlx->map.fcolor && mlx->map.ccolor)
-			return (1);
-		return (0);
-	}
+	if (mlx->map.ntexture && mlx->map.stexture
+		&& mlx->map.wtexture && mlx->map.etexture
+		&& mlx->map.fcolor && mlx->map.ccolor)
+		return (1);
+	return (0);
 }
 
 int	is_map(char *str)
@@ -97,11 +86,13 @@ int	check_filecont(char *file_cont)
 	}
 	if (ft_strlen(file_cont) > 1000)
 	{
+		free(file_cont);
 		ft_putstr_fd("Error\nMap file is too large.\n", 2);
 		return (1);
 	}
 	if (check_nonewline(file_cont))
 	{
+		free(file_cont);
 		ft_putstr_fd("Error\nMap contains newline.\n", 2);
 		return (1);
 	}
