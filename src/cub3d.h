@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:10 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/16 15:52:31 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:02:24 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@
 
 # define WIDTH 852
 # define HEIGHT 480
+#define texWidth 32
+#define texHeight 32
+
+/* Linux Keys */
+# define KEY_RIGHT 0xFF53
+# define KEY_LEFT 0xFF51
+# define KEY_W 0x77
+# define KEY_S 0x73
+# define KEY_A 0x61
+# define KEY_D 0x64
+# define DOORS 0x65 // E
+# define KEY_ESC 0xFF1B
+
+/* MAC Keys 
 # define KEY_A 0x00
 # define KEY_S 0x01
 # define KEY_D 0x02
@@ -29,7 +43,7 @@
 # define KEY_ESC 0x35
 # define KEY_LEFT 0x7B
 # define KEY_RIGHT 0x7C
-
+*/
 typedef struct s_img {
 	void	*img_ptr;
 	int		*data;
@@ -61,6 +75,9 @@ typedef struct s_ray {
 	int		step_x;
 	int		step_y;
 	int		side;
+	double wallx;
+	int		texX;
+	double step;
 }	t_ray;
 
 typedef struct s_map {

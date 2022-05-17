@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:27:18 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/16 15:29:04 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:25:45 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 static void	setup_ray(t_mlx *mlx)
 {
@@ -24,19 +25,67 @@ static void	setup_ray(t_mlx *mlx)
 	mlx->ray.deltadist_y = fabs(1 / mlx->ray.raydir_y);
 }
 
+/* if -1 i am west looking EA */
+/* if -1 i am North looking SO */
+/* if 1 i am east looking WE */
+/* if 1 i am SOUTH looking NO */
+
+
+static int find_colour(t_mlx *mlx, int texy)
+{
+	if (mlx->ray.raydir_y < 0)
+	{
+		if (mlx->ray.side == 1)
+			return (mlx->map.e_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y < 0)
+			return (mlx->map.s_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y >= 0)
+			return (mlx->map.n_texture[texHeight * texy + mlx->ray.texX ]);
+	}
+	if (mlx->ray.raydir_y >= 0)
+	{
+		if (mlx->ray.side == 1)
+			return (mlx->map.w_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y < 0)
+			return (mlx->map.s_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y >= 0)
+			return (mlx->map.n_texture[texHeight * texy + mlx->ray.texX ]);
+	}
+	return (100);
+}
+
 static void	verline(t_mlx *mlx, int x, int draw_start, int draw_end)
 {
 	int	y;
 	int	color;
+	// int texNum = mlx->map.map[mlx->ray.map_x][mlx->ray.map_y] -1;
+	int line_height;
+	double tex_pos;
+	int texy;
 
-	y = draw_start;
-	color = 0xFFFFFF;
+	line_height = (int)(HEIGHT / mlx->ray.perp_wall_dist);
 	if (mlx->ray.side == 1)
-		color /= 2;
+		mlx->ray.wallx =  mlx->ray.map_y + mlx->ray.perp_wall_dist * mlx->ray.raydir_y;
+	else
+		mlx->ray.wallx =  mlx->ray.map_y + mlx->ray.perp_wall_dist * mlx->ray.raydir_x;
+	mlx->ray.wallx -= floor(mlx->ray.wallx);
+	mlx->ray.texX = (int)(mlx->ray.wallx * (double)texWidth);
+	if (mlx->ray.side == 0 && mlx->ray.raydir_x > 0)
+		mlx->ray.texX =  texWidth - mlx->ray.texX - 1;
+	if (mlx->ray.side == 1 && mlx->ray.raydir_y < 0)
+		mlx->ray.texX =  texWidth - mlx->ray.texX - 1;
+	mlx->ray.step = 1.0 * texHeight / line_height;
+	tex_pos = ((draw_start - 100 - HEIGHT / 2) + line_height /2 ) * mlx->ray.step;
+	y = draw_start;
 	while (y <= draw_end)
 	{
+		texy = tex_pos;
+		tex_pos += mlx->ray.step;
+		color = find_colour(mlx, texy);
+		// printf("color : %i", color);
+		// color = 0;
 		mlx->buf[y][x] = color;
-		++y;
+		y++;
 	}
 	if (draw_end < 0)
 		draw_end = HEIGHT;
@@ -56,7 +105,7 @@ static void	draw_walls(t_mlx *mlx, int x)
 	int	line_height;
 	int	draw_start;
 	int	draw_end;
-
+		
 	if (mlx->ray.side == 0)
 		mlx->ray.perp_wall_dist = mlx->ray.sidedist_x - mlx->ray.deltadist_x;
 	else
