@@ -6,7 +6,7 @@
 /*   By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:10 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/17 11:10:14 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:02:24 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_ray {
 	int		step_y;
 	int		side;
 	double wallx;
-	double texX;
+	int		texX;
 	double step;
 }	t_ray;
 

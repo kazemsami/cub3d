@@ -6,11 +6,12 @@
 /*   By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:27:18 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/17 11:29:22 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:25:45 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 static void	setup_ray(t_mlx *mlx)
 {
@@ -24,14 +25,43 @@ static void	setup_ray(t_mlx *mlx)
 	mlx->ray.deltadist_y = fabs(1 / mlx->ray.raydir_y);
 }
 
+/* if -1 i am west looking EA */
+/* if -1 i am North looking SO */
+/* if 1 i am east looking WE */
+/* if 1 i am SOUTH looking NO */
+
+
+static int find_colour(t_mlx *mlx, int texy)
+{
+	if (mlx->ray.raydir_y < 0)
+	{
+		if (mlx->ray.side == 1)
+			return (mlx->map.e_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y < 0)
+			return (mlx->map.s_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y >= 0)
+			return (mlx->map.n_texture[texHeight * texy + mlx->ray.texX ]);
+	}
+	if (mlx->ray.raydir_y >= 0)
+	{
+		if (mlx->ray.side == 1)
+			return (mlx->map.w_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y < 0)
+			return (mlx->map.s_texture[texHeight * texy + mlx->ray.texX ]);
+		if (mlx->ray.raydir_y >= 0)
+			return (mlx->map.n_texture[texHeight * texy + mlx->ray.texX ]);
+	}
+	return (100);
+}
+
 static void	verline(t_mlx *mlx, int x, int draw_start, int draw_end)
 {
 	int	y;
 	int	color;
-	int texNum = mlx->map.map[mlx->ray.map_x][mlx->ray.map_y] -1;
+	// int texNum = mlx->map.map[mlx->ray.map_x][mlx->ray.map_y] -1;
 	int line_height;
 	double tex_pos;
-	double texy;
+	int texy;
 
 	line_height = (int)(HEIGHT / mlx->ray.perp_wall_dist);
 	if (mlx->ray.side == 1)
@@ -47,14 +77,15 @@ static void	verline(t_mlx *mlx, int x, int draw_start, int draw_end)
 	mlx->ray.step = 1.0 * texHeight / line_height;
 	tex_pos = ((draw_start - 100 - HEIGHT / 2) + line_height /2 ) * mlx->ray.step;
 	y = draw_start;
-	if (mlx->ray.side == 1)
 	while (y <= draw_end)
 	{
 		texy = tex_pos;
 		tex_pos += mlx->ray.step;
-		color = 0 + texy * 100;
+		color = find_colour(mlx, texy);
+		// printf("color : %i", color);
+		// color = 0;
 		mlx->buf[y][x] = color;
-		++y;
+		y++;
 	}
 	if (draw_end < 0)
 		draw_end = HEIGHT;
