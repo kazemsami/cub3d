@@ -6,7 +6,7 @@
 #    By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/13 19:51:16 by kabusitt          #+#    #+#              #
-#    Updated: 2022/05/16 16:50:40 by ahhammou         ###   ########.fr        #
+#    Updated: 2022/05/16 17:11:17 by kabusitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ ${NAME}: ${OBJS}
 	${MAKE} -C libft
 	${CC} ${CFLAGS} ${OBJS} $(LIBFT) ${MLX_FLAGS} -o $@
 
-%.o: %.c philosophers.h
+%.o: %.c
 	${MAKE} -C libft
 	${CC} ${CFLAGS} -c $< -Llibft -lft ${MLX_FLAGS} -o $@
 
