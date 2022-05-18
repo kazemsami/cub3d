@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:10 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/18 13:05:41 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:32:50 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@
 # define SO 2
 # define WE 3
 # define EA 4
-/* Linux Keys 
-# define KEY_RIGHT 0xFF53
-# define KEY_LEFT 0xFF51
-# define KEY_W 0x77
-# define KEY_S 0x73
-# define KEY_A 0x61
-# define KEY_D 0x64
-# define DOORS 0x65 // E
-# define KEY_ESC 0xFF1B
-*/
-/* MAC Keys */
 # define KEY_A 0x00
 # define KEY_S 0x01
 # define KEY_D 0x02
@@ -79,9 +68,9 @@ typedef struct s_ray {
 	int		step_x;
 	int		step_y;
 	int		side;
-	double wallx;
-	int		texX;
-	double step;
+	double	wallx;
+	int		tex_x;
+	double	step;
 }	t_ray;
 
 typedef struct s_map {
@@ -118,6 +107,7 @@ typedef struct s_mlx {
 	int			key_w;
 	int			key_right;
 	int			key_left;
+	int			texture[4][4096];
 	t_img		img[5];
 	t_map		map;
 	t_player	player;
@@ -172,5 +162,6 @@ void	calc_step(t_mlx *mlx);
 void	dda(t_mlx *mlx);
 void	draw(t_mlx *mlx);
 void	process(t_mlx *mlx);
+void	draw_texture(t_mlx *mlx, int x, int draw_start, int draw_end);
 
 #endif
