@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:27:18 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/17 16:25:45 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:56:39 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,38 @@ static void	setup_ray(t_mlx *mlx)
 /* if 1 i am SOUTH looking NO */
 
 
-static int find_colour(t_mlx *mlx, int texy)
+static int find_colour(t_mlx *mlx, int texy, double tex_pos)
 {
+	texy = 0;
+	int line_height;
+	line_height = (int)(HEIGHT / mlx->ray.perp_wall_dist);
 	if (mlx->ray.raydir_y < 0)
 	{
 		if (mlx->ray.side == 1)
-			return (mlx->map.e_texture[texHeight * texy + mlx->ray.texX ]);
-		if (mlx->ray.raydir_y < 0)
-			return (mlx->map.s_texture[texHeight * texy + mlx->ray.texX ]);
-		if (mlx->ray.raydir_y >= 0)
-			return (mlx->map.n_texture[texHeight * texy + mlx->ray.texX ]);
+			return (*(unsigned int *)mlx->img[EA].data+(((int)tex_pos & (mlx->img[EA].hieght - 1)) * line_height + mlx->ray.texX * mlx->img[EA].bpp/8));
+		if (mlx->ray.raydir_x < 0)
+			return (*(unsigned int *)mlx->img[NO].data+(((int)tex_pos & (mlx->img[NO].hieght - 1)) * line_height + mlx->ray.texX * mlx->img[NO].bpp/8));
+		if (mlx->ray.raydir_x >= 0)
+			return (*(unsigned int *)mlx->img[SO].data+(((int)tex_pos & (mlx->img[SO].hieght - 1)) * line_height + mlx->ray.texX * mlx->img[SO].bpp/8));
 	}
 	if (mlx->ray.raydir_y >= 0)
 	{
 		if (mlx->ray.side == 1)
-			return (mlx->map.w_texture[texHeight * texy + mlx->ray.texX ]);
-		if (mlx->ray.raydir_y < 0)
-			return (mlx->map.s_texture[texHeight * texy + mlx->ray.texX ]);
-		if (mlx->ray.raydir_y >= 0)
-			return (mlx->map.n_texture[texHeight * texy + mlx->ray.texX ]);
+			return (*(unsigned int *)mlx->img[WE].data+(((int)tex_pos & (mlx->img[WE].hieght - 1)) * line_height + mlx->ray.texX * mlx->img[WE].bpp/8));
+		if (mlx->ray.raydir_x < 0)
+			return (*(unsigned int *)mlx->img[NO].data+(((int)tex_pos & (mlx->img[NO].hieght - 1)) * line_height + mlx->ray.texX * mlx->img[NO].bpp/8));
+		if (mlx->ray.raydir_x >= 0)
+			return (*(unsigned int *)mlx->img[SO].data+(((int)tex_pos & (mlx->img[SO].hieght - 1)) * line_height + mlx->ray.texX * mlx->img[SO].bpp/8));
 	}
-	return (100);
+	return (0);
 }
 
 static void	verline(t_mlx *mlx, int x, int draw_start, int draw_end)
 {
 	int	y;
-	int	color;
-	// int texNum = mlx->map.map[mlx->ray.map_x][mlx->ray.map_y] -1;
+	unsigned int color;
 	int line_height;
-	double tex_pos;
+	int tex_pos;
 	int texy;
 
 	line_height = (int)(HEIGHT / mlx->ray.perp_wall_dist);
@@ -68,22 +70,21 @@ static void	verline(t_mlx *mlx, int x, int draw_start, int draw_end)
 		mlx->ray.wallx =  mlx->ray.map_y + mlx->ray.perp_wall_dist * mlx->ray.raydir_y;
 	else
 		mlx->ray.wallx =  mlx->ray.map_y + mlx->ray.perp_wall_dist * mlx->ray.raydir_x;
-	mlx->ray.wallx -= floor(mlx->ray.wallx);
-	mlx->ray.texX = (int)(mlx->ray.wallx * (double)texWidth);
+	// mlx->ray.wallx -= floor(mlx->ray.wallx);
+	mlx->ray.texX = (int)(mlx->ray.wallx * mlx->img[1].width);
 	if (mlx->ray.side == 0 && mlx->ray.raydir_x > 0)
-		mlx->ray.texX =  texWidth - mlx->ray.texX - 1;
+		mlx->ray.texX =  mlx->img[1].width - mlx->ray.texX - 1;
 	if (mlx->ray.side == 1 && mlx->ray.raydir_y < 0)
-		mlx->ray.texX =  texWidth - mlx->ray.texX - 1;
-	mlx->ray.step = 1.0 * texHeight / line_height;
-	tex_pos = ((draw_start - 100 - HEIGHT / 2) + line_height /2 ) * mlx->ray.step;
+		mlx->ray.texX =  mlx->img[1].width - mlx->ray.texX - 1;
+	mlx->ray.step = mlx->img[1].hieght / line_height;
+	tex_pos = (draw_start - HEIGHT / 2 + line_height /2 ) * mlx->ray.step;
 	y = draw_start;
 	while (y <= draw_end)
 	{
-		texy = tex_pos;
+		texy = tex_pos & (mlx->img[2].hieght - 1);
 		tex_pos += mlx->ray.step;
-		color = find_colour(mlx, texy);
-		// printf("color : %i", color);
-		// color = 0;
+		color = find_colour(mlx, texy, tex_pos);
+		// color = mlx->img[1].data[tex_pos * mlx->ray.texX * mlx->img[1].bpp / 8];
 		mlx->buf[y][x] = color;
 		y++;
 	}
@@ -96,7 +97,7 @@ static void	verline(t_mlx *mlx, int x, int draw_start, int draw_end)
 				mlx->map.floor_b);
 		mlx->buf[HEIGHT - y][x] = get_hex(mlx->map.ceil_r,
 				mlx->map.ceil_g, mlx->map.ceil_b);
-		++y;
+		y++;
 	}
 }
 
@@ -147,10 +148,10 @@ void	draw(t_mlx *mlx)
 		x = 0;
 		while (x < WIDTH)
 		{
-			mlx->img.data[y * WIDTH + x] = mlx->buf[y][x];
+			mlx->img[0].data[y * WIDTH + x] = mlx->buf[y][x];
 			++x;
 		}
 		++y;
 	}
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img[0].img_ptr, 0, 0);
 }
