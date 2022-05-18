@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:19 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/18 13:06:38 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:35:08 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	init_mlx(t_mlx *mlx)
 	mlx->mlx_ptr = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	mlx->img[0].img_ptr = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
-	mlx->img[0].data = (int*)mlx_get_data_addr(mlx->img[0].img_ptr, &mlx->img[0].bpp,
-			&mlx->img[0].size_l, &mlx->img[0].endian);
-	// draw_loop(mlx);
-	// mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img[.img_ptr, 0, 0);
+	mlx->img[0].data = (int *)mlx_get_data_addr(mlx->img[0].img_ptr,
+			&mlx->img[0].bpp, &mlx->img[0].size_l, &mlx->img[0].endian);
 	mlx_loop_hook(mlx->mlx_ptr, draw_loop, mlx);
 	mlx_hook(mlx->win, 2, 0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 0, key_release, mlx);
@@ -76,7 +74,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_putstr_fd("Wrong number of arguments", 2);
+		ft_putstr_fd("Wrong number of arguments\n", 2);
 		return (1);
 	}
 }

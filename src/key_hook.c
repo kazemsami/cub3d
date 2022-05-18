@@ -6,12 +6,11 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 17:12:38 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/16 15:31:13 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/18 18:36:11 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 void	turn_right(t_mlx *mlx)
 {
