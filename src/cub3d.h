@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:10 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/17 16:02:24 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/18 13:05:41 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
 
 # define WIDTH 852
 # define HEIGHT 480
-#define texWidth 32
-#define texHeight 32
 
-/* Linux Keys */
+# define NO 1
+# define SO 2
+# define WE 3
+# define EA 4
+/* Linux Keys 
 # define KEY_RIGHT 0xFF53
 # define KEY_LEFT 0xFF51
 # define KEY_W 0x77
@@ -34,8 +36,8 @@
 # define KEY_D 0x64
 # define DOORS 0x65 // E
 # define KEY_ESC 0xFF1B
-
-/* MAC Keys 
+*/
+/* MAC Keys */
 # define KEY_A 0x00
 # define KEY_S 0x01
 # define KEY_D 0x02
@@ -43,12 +45,14 @@
 # define KEY_ESC 0x35
 # define KEY_LEFT 0x7B
 # define KEY_RIGHT 0x7C
-*/
+
 typedef struct s_img {
 	void	*img_ptr;
 	int		*data;
 	int		size_l;
 	int		bpp;
+	int		width;
+	int		hieght;
 	int		endian;
 }	t_img;
 
@@ -114,7 +118,7 @@ typedef struct s_mlx {
 	int			key_w;
 	int			key_right;
 	int			key_left;
-	t_img		img;
+	t_img		img[5];
 	t_map		map;
 	t_player	player;
 	t_ray		ray;

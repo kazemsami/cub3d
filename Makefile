@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahhammou <ahhammou@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/13 19:51:16 by kabusitt          #+#    #+#              #
-#    Updated: 2022/05/16 17:11:17 by kabusitt         ###   ########.fr        #
+#    Updated: 2022/05/18 15:01:57 by ahhammou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ ifeq ($(OS), Linux)
 	MLX_FLAGS = -Lmlx_linux -lmlx -Imlx_linux -lXext -lX11 -lm -lz
 	MLX_PATH = mlx_linux
 else
-	MLX_FLAGS = -Lmlx_mac -lmlx -Imlx_mac -framework OpenGL -framework AppKit
-	MLX_PATH = mlx_mac
+	MLX_FLAGS = -Lmlx -lmlx -Imlx -framework OpenGL -framework AppKit
+	MLX_PATH = mlx
 endif
 
 all: ${NAME}
@@ -35,7 +35,7 @@ ${NAME}: ${OBJS}
 
 %.o: %.c
 	${MAKE} -C libft
-	${CC} ${CFLAGS} -c $< -Llibft -lft ${MLX_FLAGS} -o $@
+	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
 	rm -rf src/*.o
