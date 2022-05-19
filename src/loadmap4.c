@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadmap4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:57:43 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/13 17:19:11 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/19 12:52:08 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,6 @@ int	check_color(t_mlx *mlx)
 	if (check_ceiling_col(mlx, tmp))
 		return (1);
 	free_split(tmp);
-	return (0);
-}
-
-int	check_texture(t_mlx *mlx)
-{
-	int	fd;
-
-	fd = open(mlx->map.e_texture, O_RDONLY);
-	if (fd == -1)
-		return (1);
-	close(fd);
-	fd = open(mlx->map.s_texture, O_RDONLY);
-	if (fd == -1)
-		return (1);
-	close(fd);
-	fd = open(mlx->map.n_texture, O_RDONLY);
-	if (fd == -1)
-		return (1);
-	close(fd);
-	fd = open(mlx->map.w_texture, O_RDONLY);
-	if (fd == -1)
-		return (1);
-	close(fd);
 	return (0);
 }
 

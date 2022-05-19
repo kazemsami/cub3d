@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:29:31 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/16 15:16:30 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/19 13:11:42 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void	free_map(t_mlx *mlx)
 
 int	exit_hook(t_mlx *mlx)
 {
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img[0].img_ptr);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img[1].img_ptr);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img[2].img_ptr);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img[3].img_ptr);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img[4].img_ptr);
 	mlx_destroy_window(mlx->mlx_ptr, mlx->win);
 	free_mem(mlx);
 	exit(0);

@@ -6,7 +6,7 @@
 #    By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/13 19:51:16 by kabusitt          #+#    #+#              #
-#    Updated: 2022/05/18 15:01:57 by ahhammou         ###   ########.fr        #
+#    Updated: 2022/05/19 13:09:43 by ahhammou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	${MAKE} -C libft
-	${CC} ${CFLAGS} ${OBJS} $(LIBFT) ${MLX_FLAGS} -o $@
+	${CC} ${CFLAGS} ${OBJS} $(LIBFT) ${MLX_FLAGS} -g -o $@
 
 %.o: %.c
 	${MAKE} -C libft

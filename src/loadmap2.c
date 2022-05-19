@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadmap2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:54:45 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/14 16:02:23 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/19 13:13:08 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	malloc_map(t_mlx *mlx, char **strs)
 			return (1);
 		++i;
 	}
+	mlx->map.map[i] = 0;
 	if (cpy_map(mlx, strs, max))
 		return (1);
-	mlx->map.map[i] = 0;
 	return (0);
 }
 

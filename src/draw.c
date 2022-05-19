@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:27:18 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/18 18:35:59 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:27:58 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	verline(t_mlx *mlx, int draw_start, int draw_end, int x)
 	{
 		mlx->buf[y][x] = get_hex(mlx->map.floor_r, mlx->map.floor_g,
 				mlx->map.floor_b);
-		mlx->buf[HEIGHT - y][x] = get_hex(mlx->map.ceil_r,
+		mlx->buf[HEIGHT - y - 1][x] = get_hex(mlx->map.ceil_r,
 				mlx->map.ceil_g, mlx->map.ceil_b);
 		y++;
 	}

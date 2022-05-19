@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:53:37 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/14 13:13:22 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/19 12:51:12 by ahhammou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ static int	check_map_valid(t_mlx *mlx)
 	if (mlx->map.map == NULL)
 	{
 		ft_putstr_fd("Error\nFailed to initialize map.\n", 2);
-		return (1);
-	}
-	if (check_texture(mlx))
-	{
-		ft_putstr_fd("Error\nOne of the textures do not exist.\n", 2);
 		return (1);
 	}
 	if (check_color(mlx))
