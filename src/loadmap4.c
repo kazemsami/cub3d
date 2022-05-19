@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadmap4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:57:43 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/19 12:52:08 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:07:19 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,29 @@ int	check_color(t_mlx *mlx)
 	return (0);
 }
 
+static int	check_new(char *str)
+{
+	int	i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (str[i] == ' ')
+		++i;
+	while (str[i] && str[i] != '\n')
+		++i;
+	if (str[i] == '\n')
+		++i;
+	while (str[i] == '\n')
+	{
+		++cnt;
+		++i;
+	}
+	if (cnt > 0 && is_map(&str[i]))
+		return (1);
+	return (0);
+}
+
 int	check_nonewline(char *file_cont)
 {
 	int	i;
@@ -82,9 +105,9 @@ int	check_nonewline(char *file_cont)
 	is_inmap = 0;
 	while (file_cont[i])
 	{
-		if (is_map(&file_cont[i]) == 1 && !is_inmap)
+		if (is_map(&file_cont[i]) && !is_inmap)
 			is_inmap = 1;
-		if (is_map(&file_cont[i]) == 2 && is_inmap)
+		if (check_new(&file_cont[i]) && is_inmap)
 			return (1);
 		while (file_cont[i] != '\n' && file_cont[i])
 			++i;

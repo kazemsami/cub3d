@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:53:37 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/19 12:51:12 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:28:29 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,19 @@ int	iselement(char *str)
 
 int	parse_map(t_mlx *mlx, char **strs)
 {
+	int	i;
+	int	chk;
+
 	while (*strs)
 	{
-		while (**strs == ' ' && !is_map(*strs))
-			(*strs)++;
-		if (iselement(*strs))
-		{
-			if (check_elements(mlx, *strs))
-				return (1);
-		}
-		else if (is_map(*strs) && elements_exist(mlx))
-		{
-			if (validate_map(mlx, strs))
-				return (1);
+		i = 0;
+		while ((*strs)[i] == ' ' && !is_map(*strs))
+			i++;
+		chk = do_map(mlx, strs, i);
+		if (chk == 2)
 			break ;
-		}
-		else
-		{
-			ft_putstr_fd("Error\nInvalid characters in the map "
-				"or fields are missing\n", 2);
+		else if (chk == 1)
 			return (1);
-		}
 		strs++;
 	}
 	return (0);

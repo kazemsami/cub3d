@@ -6,7 +6,7 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 17:12:38 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/18 18:36:11 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:29:56 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,27 @@ int	key_release(int keycode, t_mlx *mlx)
 		mlx->key_left = 0;
 	else if (keycode == KEY_RIGHT)
 		mlx->key_right = 0;
+	return (0);
+}
+
+int	do_map(t_mlx *mlx, char **strs, int i)
+{
+	if (iselement(&(*strs)[i]))
+	{
+		if (check_elements(mlx, &(*strs)[i]))
+			return (1);
+	}
+	else if (is_map(*strs) && elements_exist(mlx))
+	{
+		if (validate_map(mlx, strs))
+			return (1);
+		return (2);
+	}
+	else
+	{
+		ft_putstr_fd("Error\nInvalid characters in the map "
+			"or fields are missing\n", 2);
+		return (1);
+	}
 	return (0);
 }

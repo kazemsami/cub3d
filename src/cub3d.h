@@ -6,7 +6,7 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:10 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/18 18:32:50 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:30:11 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,6 @@ void	dda(t_mlx *mlx);
 void	draw(t_mlx *mlx);
 void	process(t_mlx *mlx);
 void	draw_texture(t_mlx *mlx, int x, int draw_start, int draw_end);
+int		do_map(t_mlx *mlx, char **strs, int i);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadmap5.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:05:53 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/19 11:40:49 by ahhammou         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:11:59 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ int	elements_exist(t_mlx *mlx)
 int	is_map(char *str)
 {
 	int	i;
+	int	chk;
 
 	i = 0;
+	chk = 0;
 	while (str[i] == ' ')
 		++i;
 	while (str[i] && str[i] != '\n')
@@ -35,10 +37,13 @@ int	is_map(char *str)
 			&& str[i] != 'E' && str[i] != 'S'
 			&& str[i] != ' ')
 			return (0);
+		chk = 1;
 		++i;
 	}
-	if (str[i + 1] == '\n')
-		return (2);
+	if (str[i] == '\n' && !chk)
+		return (0);
+	if (!str[i] && !chk)
+		return (0);
 	return (1);
 }
 
