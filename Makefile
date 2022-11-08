@@ -30,16 +30,17 @@ endif
 all: ${NAME}
 
 ${NAME}: ${OBJS}
+	${MAKE} -C mlx
 	${MAKE} -C libft
 	${CC} ${CFLAGS} ${OBJS} $(LIBFT) ${MLX_FLAGS} -o $@
 
 %.o: %.c
-	${MAKE} -C libft
 	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
 	rm -rf src/*.o
 	${MAKE} clean -C libft
+	${MAKE} clean -C mlx
 
 fclean: clean
 	rm -rf ${NAME}
