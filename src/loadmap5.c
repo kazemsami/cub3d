@@ -6,7 +6,7 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:05:53 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/19 18:11:59 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:06:45 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	is_map(char *str)
 	chk = 0;
 	while (str[i] == ' ')
 		++i;
+	if (!ft_strncmp(&str[i], "WE", 2))
+		return (0);
 	while (str[i] && str[i] != '\n')
 	{
 		if (str[i] != '0' && str[i] != '1'

@@ -6,7 +6,7 @@
 /*   By: kabusitt <kabusitt@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:46:19 by kabusitt          #+#    #+#             */
-/*   Updated: 2022/05/18 18:35:08 by kabusitt         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:10:41 by kabusitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ void	init_keys(t_mlx *mlx)
 	mlx->key_right = 0;
 }
 
-void	init_mlx(t_mlx *mlx)
+int	init_mlx(t_mlx *mlx)
 {
 	mlx->mlx_ptr = mlx_init();
+	if (!mlx->mlx_ptr)
+		return (1);
 	mlx->win = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	mlx->img[0].img_ptr = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
 	mlx->img[0].data = (int *)mlx_get_data_addr(mlx->img[0].img_ptr,
@@ -54,6 +56,7 @@ void	init_mlx(t_mlx *mlx)
 	mlx_hook(mlx->win, 3, 0, key_release, mlx);
 	mlx_hook(mlx->win, 17, 0, exit_hook, mlx);
 	mlx_loop(mlx->mlx_ptr);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -70,11 +73,16 @@ int	main(int argc, char **argv)
 		}
 		init_player(&mlx);
 		init_keys(&mlx);
-		init_mlx(&mlx);
+		if (init_mlx(&mlx))
+		{
+			ft_putstr_fd("Error\nFailed to init mlx.\n", 2);
+			return (1);
+		}
 	}
 	else
 	{
-		ft_putstr_fd("Wrong number of arguments\n", 2);
+		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
 		return (1);
 	}
+	return (0);
 }

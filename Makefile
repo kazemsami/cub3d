@@ -6,7 +6,7 @@
 #    By: ahhammou <ahhammou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/13 19:51:16 by kabusitt          #+#    #+#              #
-#    Updated: 2022/05/19 13:50:45 by ahhammou         ###   ########.fr        #
+#    Updated: 2022/05/23 13:44:26 by kabusitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ endif
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${MAKE} -C mlx
 	${MAKE} -C libft
+	${MAKE} -C mlx
 	${CC} ${CFLAGS} ${OBJS} $(LIBFT) ${MLX_FLAGS} -o $@
 
 %.o: %.c
