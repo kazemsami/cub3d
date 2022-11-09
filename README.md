@@ -21,7 +21,7 @@ $ make
 `$ make re` which will force clean all files and redo the build.
 
 ### Usage
-`$ ./cub3d`
+`$ ./cub3d map.cub`
 
 ### Useful links for reference
 https://github.com/keuhdall/images_example
